@@ -21,7 +21,6 @@ const Schema = mongoose.Schema;
 const ItemSchema = new Schema({
   name: {
     type: String,
-    required: true,
   },
   date: {
     type: Date,
@@ -40,12 +39,16 @@ app.get("/", (req, res) =>
 app.post("/", async (req, res) => {
   const session = await mongoose.startSession();
   try {
+    console.log(req.body.name);
     await session.withTransaction(async () => {
-      const item = await Item.create({ name: req.body.name });
-      res.json(item);
+      const data = { name: req.body.name };
+      await Item.create([data], { session: session });
+      throw new Error("asdasd"); // test transaction
     });
+    res.json({});
   } catch (error) {
-    console.error(err);
+    console.error(error);
+    res.send(error);
   } finally {
     await session.endSession();
   }
