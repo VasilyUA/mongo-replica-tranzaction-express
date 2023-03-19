@@ -1,0 +1,10 @@
+{
+  "ignore": ["node_modules"],
+  "env": {
+    "NODE_ENV": "development",
+    "PORT": 3000,
+    "MONGO_URL": "mongodb://127.0.0.1:27017/myDB?directConnection=true&replicaSet=rs0"
+  },
+  "ext": ".js,.json",
+  "watch": "./"
+}

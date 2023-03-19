@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  mongo1:
+    image: mongo
+    container_name: mongo1
+    restart: always
+    ports:
+      - "27017:27017"
+    extra_hosts:
+      - 127.0.0.1:127.0.0.1
+    command: mongod --replSet rs0 --bind_ip_all
+    networks:
+      - my-cluster
+
+  mongo2:
+    image: mongo
+    container_name: mongo2
+    restart: always
+    ports:
+      - "27018:27017"
+    extra_hosts:
+      - 127.0.0.1:127.0.0.1
+    command: mongod --replSet rs0 --bind_ip_all
+    networks:
+      - my-cluster
+
+  mongo3:
+    image: mongo
+    container_name: mongo3
+    restart: always
+    ports:
+      - "27019:27017"
+    extra_hosts:
+      - 127.0.0.1:127.0.0.1
+    command: mongod --replSet rs0 --bind_ip_all
+    networks:
+      - my-cluster
+
+networks:
+  my-cluster:
+    driver: bridge
